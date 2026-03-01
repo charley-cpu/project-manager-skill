@@ -1,137 +1,189 @@
-# 项目管理器 Skill
+---
+name: project-manager
+description: 你是一个项目管理助手，帮助用户整理和管理 Claude Code / OpenCLAW 创建的本地开发项目。
+version: 1.0.0
+---
 
-你是一个项目管理助手，帮助用户整理和管理 Claude Code / OpenCLAW 创建的本地开发项目。
+# Project Manager Skill
 
-## 你的职责
+一个 Claude Code 项目管理工具，帮助你整理和追踪所有项目。
 
-1. **项目索引**：维护项目清单，记录所有项目的名称、路径和描述
-2. **项目整理**：将分散的项目移动到用户指定的统一目录
-3. **快速定位**：帮助用户快速找到和进入项目目录
-4. **磁盘管理**：处理大文件，合理选择复制或排除
-
-## 项目存储位置
-
-项目统一存放在用户指定的目录，默认为：`C:\Users\Administrator\projects\`
-
-如果用户指定了其他位置，使用用户指定的位置。
-
-## 项目索引文件
-
-在用户主目录维护 `PROJECTS.md` 文件，记录所有项目信息：
-
-```markdown
-# 项目索引清单
-
-> 更新日期：2026-03-01
-
-## 项目根目录
-
-所有项目已统一整理到 `C:\Users\Administrator\projects\` 目录下。
+[English](#english) | [中文](#中文) | [日本語](#日本語) | [한국어](#한국어)
 
 ---
 
-## 完整项目列表
+## English
 
-| 项目名 | 路径 | 描述 |
-|--------|------|------|
-| 项目名 | `projects/项目名` | 项目描述 |
-| ... | ... | ... |
+### Overview
+
+Project Manager is a Claude Code skill that helps you organize and manage your local development projects in one unified location.
+
+### Features
+
+- **Project Indexing**: Maintain a list of all projects with descriptions
+- **Project Organization**: Move scattered projects to a unified directory
+- **Quick Location**: Find and navigate to any project instantly
+- **Disk Management**: Handle large files intelligently
+
+### Installation
+
+1. Copy the `project-manager` folder to your Claude Code skills directory:
+   ```
+   C:\Users\YourUsername\.claude\skills\
+   ```
+
+2. Restart Claude Code
+
+### Usage
+
+After installation, you can:
+
+- Say: "Organize my projects"
+- Say: "Where is my xxx project?"
+- Say: "Show all projects"
+
+### Default Project Directory
+
+```
+C:\Users\Administrator\projects\
+```
+
+### Configuration
+
+You can customize the project storage location by specifying it when first organizing projects.
 
 ---
 
-## 快速命令
+## 中文
 
-```bash
-# 查看项目列表
-ls -la /c/Users/Administrator/projects/
+### 概述
 
-# 进入项目
-cd /c/Users/Administrator/projects/项目名
-```
-```
+项目管理员是一个 Claude Code skill，帮助你将所有本地开发项目整理到一个统一的目录中。
 
-## 常用命令
+### 功能
 
-```bash
-# 查看项目列表
-ls -la /c/Users/Administrator/projects/
+- **项目索引**：维护所有项目的清单和描述
+- **项目整理**：将分散的项目移动到统一目录
+- **快速定位**：快速找到并进入任何项目
+- **磁盘管理**：智能处理大文件
 
-# 查看项目索引
-cat /c/Users/Administrator/PROJECTS.md
+### 安装
 
-# 进入项目
-cd /c/Users/Administrator/projects/项目名
-```
+1. 将 `project-manager` 文件夹复制到你的 Claude Code skills 目录：
+   ```
+   C:\Users\你的用户名\.claude\skills\
+   ```
 
-## 工作流程
+2. 重启 Claude Code
 
-### 1. 首次使用 - 确定项目存储位置
+### 使用方式
 
-当用户首次要求整理项目时：
+安装完成后，你可以说：
 
-1. 询问用户希望把项目存放在哪个目录
-2. 常用选项：
-   - 默认：`C:\Users\Administrator\projects\`
-   - 或用户指定的其他目录
-3. 确认后创建该目录
-
-### 2. 整理现有项目
-
-当用户要求整理项目时：
-
-1. 扫描用户主目录（`C:\Users\Administrator\`），找到所有项目文件夹
-2. 排除系统文件夹（如 AppData, Contacts, Documents, Downloads 等）
-3. 将项目移动或复制到用户指定的项目目录
-4. 更新 `PROJECTS.md` 索引文件
-
-### 3. 添加新项目
-
-当用户创建新项目时：
-
-1. 询问项目名称
-2. 在项目目录下创建项目文件夹
-3. 将项目信息添加到 `PROJECTS.md`
-
-### 4. 处理大文件
-
-遇到大文件（如 video、audio、output、node_modules 目录）时：
-
-1. 检查磁盘空间
-2. 如果空间不足，排除大文件目录，只复制源代码
-3. 在 `PROJECTS.md` 中注明大文件未移动
-
-### 5. 快速查找项目
-
-用户询问项目位置时：
-
-1. 先查看 `PROJECTS.md` 索引
-2. 如果找不到，使用 `find` 命令搜索
-3. 告诉用户项目路径和描述
-
-## 交互指引
-
-### 识别用户需求
-
-用户可能说：
-- "整理项目"
+- "整理我的项目"
 - "我的xxx项目在哪"
-- "帮我把项目放到一起"
 - "查看所有项目"
-- "进入某个项目"
-- "指定项目存放位置"
 
-### 响应方式
+### 默认项目目录
 
-1. **首次整理**：询问用户项目存储位置
-2. **整理项目**：执行上述整理流程
-3. **查找项目**：快速定位并告知路径
-4. **查看列表**：`ls -la /c/Users/Administrator/projects/`
-5. **进入项目**：`cd /c/Users/Administrator/projects/项目名`
+```
+C:\Users\Administrator\projects\
+```
 
-## 注意事项
+### 配置
 
-- 移动项目前检查权限
-- 处理大文件时考虑磁盘空间
-- 始终更新 PROJECTS.md 索引
-- 保留原始项目直到确认移动成功
-- 尊重用户指定的项目存储位置
+首次整理项目时，你可以指定项目的存储位置。
+
+---
+
+## 日本語
+
+### 概要
+
+プロジェクトマネージャーは、すべてのローカル開発プロジェクトを1つの統一されたディレクトリに整理するClaude Codeスキルです。
+
+### 機能
+
+- **プロジェクト索引**：すべてのプロジェクトのリストと説明を維持
+- **プロジェクト整理**：散らばったプロジェクトを統一されたディレクトリに移動
+- **クイックロケーション**：どのプロジェクトでもすぐに見つけてナビゲート
+- **ディスク管理**：大きなファイルをインテリジェントに処理
+
+### インストール
+
+1. `project-manager` フォルダを Claude Code skills ディレクトリにコピー：
+   ```
+   C:\Users\あなたのユーザー名\.claude\skills\
+   ```
+
+2. Claude Code を再起動
+
+### 使用方法
+
+インストール後は、以下のように言えます：
+
+- 「プロジェクトを整理して」
+- 「私のxxxプロジェクトはどこですか」
+- 「すべてのプロジェクトを表示」
+
+### デフォルトプロジェクトディレクトリ
+
+```
+C:\Users\Administrator\projects\
+```
+
+### 設定
+
+初めてプロジェクトを整理する際に、プロジェクトの保存場所を指定できます。
+
+---
+
+## 한국어
+
+### 개요
+
+프로젝트 매니저는 모든 로컬 개발 프로젝트를 하나의 통합 디렉토리로 구성하는 Claude Code 스킬입니다.
+
+### 기능
+
+- **프로젝트 인덱싱**: 모든 프로젝트 목록과 설명 유지
+- **프로젝트 구성**: 흩어진 프로젝트를 통합 디렉토리로 이동
+- **빠른 위치 찾기**: 어느 프로젝트든 즉시 찾아서 탐색
+- **디스크 관리**: 큰 파일 지능적으로 처리
+
+### 설치
+
+1. `project-manager` 폴더를 Claude Code skills 디렉토리에 복사:
+   ```
+   C:\Users\사용자 이름\.claude\skills\
+   ```
+
+2. Claude Code 다시 시작
+
+### 사용 방법
+
+설치 후 다음과 같이 말할 수 있습니다:
+
+- "내 프로젝트 정리"
+- "내 xxx 프로젝트 어디 있어?"
+- "모든 프로젝트 보기"
+
+### 기본 프로젝트 디렉토리
+
+```
+C:\Users\Administrator\projects\
+```
+
+### 구성
+
+프로젝트를 처음 정리할 때 프로젝트 저장 위치를 지정할 수 있습니다.
+
+---
+
+## Contributing
+
+Feel free to submit issues and pull requests!
+
+## License
+
+MIT
